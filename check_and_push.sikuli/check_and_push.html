@@ -1,0 +1,122 @@
+
+<html>
+   <head>
+      <style type="text/css">
+         .sikuli-code {
+            font-size: 20px;
+            font-family: "Osaka-mono", Monospace;
+            line-height: 1.5em;
+            display:table-cell;
+            white-space: pre-wrap;       /* css-3 */
+            white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+            width: 99%;   /* remove horizontal scroll-bar when viewing in IE7 */
+         }
+         .sikuli-code img {
+            vertical-align: middle;
+            margin: 2px;
+            border: 1px solid #ccc;
+            padding: 2px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-box-shadow: 1px 1px 1px gray;
+            -webkit-box-shadow: 1px 1px 2px gray;
+         }
+         .kw {
+            color: blue;
+         }
+         .skw {
+            color: rgb(63, 127, 127);
+         }
+
+         .str {
+            color: rgb(128, 0, 0);
+         }
+
+         .dig {
+            color: rgb(128, 64, 0);
+         }
+
+         .cmt {
+            color: rgb(200, 0, 200);
+         }
+
+         h2 {
+            display: inline;
+            font-weight: normal;
+         }  
+         
+         .info {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            display: none;
+         }
+
+         a {
+            color: #9D2900;
+         }
+
+         body {
+            font-family: "Trebuchet MS", Arial, Sans-Serif;
+         }
+
+      </style>
+   </head>
+<body>
+<div class="info">
+<h2>check_and_push.sikuli</h2> <a href="check_and_push.zip">(Download this script)</a>
+</div>
+<pre class="sikuli-code">
+num_of_records = <span class="dig">50308</span>
+scroll_times = <span class="dig">16</span>
+
+<span class="kw">def</span> test():
+    hover(<img src="iWJ.png" />)
+    <span class="skw">doubleClick</span>(<img src="iWJ.png" />)
+    <span class="skw">click</span>(<img src="1364018307252.png" />)
+    <span class="skw">click</span>(<img src="1364017967246.png" />)
+    <span class="skw">click</span>(<img src="1364018307252.png" />)
+
+<span class="kw">def</span> push_record_to_github():
+    <span class="skw">click</span>(<img src="1364022281123.png" />)
+    <span class="skw">type</span>(<span class="str">"c"</span>, KEY_CMD) <span class="cmt"># copy url</span>
+
+    switchApp(<span class="str">"Terminal"</span>)
+    <span class="skw">type</span>(<span class="str">"pbpaste &gt;&gt; record.txt"</span>)
+    <span class="skw">type</span>(Key.ENTER)
+    <span class="skw">type</span>(<span class="str">"echo '' &gt;&gt; record.txt"</span>)
+    <span class="skw">type</span>(Key.ENTER)
+    <span class="skw">type</span>(<span class="str">"git add record.txt"</span>)
+    <span class="skw">type</span>(Key.ENTER)
+    <span class="skw">type</span>(<span class="str">"git commit -m 'add new record by sikuli script'"</span>)
+    <span class="skw">type</span>(Key.ENTER)
+    <span class="skw">type</span>(<span class="str">"git push -u origin master"</span>)
+    <span class="skw">type</span>(Key.ENTER)
+    switchApp(<span class="str">"Safari"</span>)
+
+<span class="kw">def</span> check():
+    <span class="kw">if</span> exists(<img src="iWJ.png" />):
+        hover(<img src="iWJ.png" />)        <span class="cmt"># for human beings to see</span>
+        <span class="skw">sleep</span>(<span class="dig">1</span>)
+        push_record_to_github()
+        <span class="kw">return</span> True
+    <span class="kw">return</span> False
+
+
+
+<span class="cmt"># main program
+</span><span class="kw">for</span> n <span class="kw">in</span> range(num_of_records):
+    <span class="skw">sleep</span>(<span class="dig">4</span>)    <span class="cmt"># waiting for page loading </span>
+    <span class="kw">while</span>(<span class="kw">not</span> exists(<img src="Ji.png" />)):
+        <span class="kw">if</span> check() <span class="kw">is</span> True:
+            <span class="skw">type</span>(Key.END)       <span class="cmt"># scroll to end</span>
+            <span class="kw">break</span>               <span class="cmt"># and leave loop</span>
+        <span class="kw">else</span>: <span class="cmt"># not found, continue...</span>
+            <span class="skw">type</span>(Key.PAGE_DOWN) <span class="cmt"># scroll down</span>
+    <span class="skw">click</span>(<img src="Ji.png" />)
+</pre>
+</body>
+</html>
